@@ -14,10 +14,6 @@
 
 void	charcontrol(t_list *data, int i, int j)
 {
-	write(1, "1", 1);
-	data->collectablecount = 0;
-	data->exitcount = 0;
-	data->playercount = 0;
 	if (data->map[i][j] == 'P')
 		data->playercount++;
 	else if (data->map[i][j] == 'E')
@@ -25,9 +21,28 @@ void	charcontrol(t_list *data, int i, int j)
 	else if (data->map[i][j] == 'C')
 		data->collectablecount++;
 	else if (data->map[i][j] != '1' && data->map[i][j] != '0' && data->map[i][j] != '\n' && data->map[i][j] != '\0')
+		errorfunc();
+}
+
+void	mapcontrol2(t_list *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < data->maprow)
 	{
-		printf("%c", data->map[i][j]);
-		//errorfunc();
+		if (data->map[i][0] != '1' || data->map[i][data->mapcolumn - 1] != '1')
+			errorfunc();
+		while (j < data->mapcolumn)
+		{
+			if (data->map[0][j] != '1' || data->map[data->maprow - 1][j] != '1')
+				errorfunc();
+			j++;
+		}
+		j = 0;
+		i++;
 	}
 }
 
@@ -35,15 +50,13 @@ void	mapcontrol(t_list *data)
 {
 	int	i;
 	int	j;
-	int	charcount;
-	int	exitcount;
-	int	collectablecount;
 
 	i = 0;
 	j = 0;
-	charcount = 0;
-	exitcount = 0;
-	collectablecount = 0;
+	data->collectablecount = 0;
+	data->exitcount = 0;
+	data->playercount = 0;
+	mapcontrol2(data);
 	while (i < data->maprow)
 	{
 		while (j < data->mapcolumn)
