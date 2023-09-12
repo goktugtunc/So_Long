@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:51:27 by gotunc            #+#    #+#             */
-/*   Updated: 2023/09/09 16:16:02 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/09/12 11:40:18 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	charcontrol(t_list *data, int i, int j)
 		data->exitcount++;
 	else if (data->map[i][j] == 'C')
 		data->collectablecount++;
-	else if (data->map[i][j] != '1' && data->map[i][j] != '0' && data->map[i][j] != '\n' && data->map[i][j] != '\0')
+	else if (data->map[i][j] != '1' && data->map[i][j] != '0' &&
+		data->map[i][j] != '\n' && data->map[i][j] != '\0')
 		errorfunc();
 }
 
@@ -67,7 +68,7 @@ void	mapcontrol(t_list *data)
 		j = 0;
 		i++;
 	}
-	if (data->playercount != 1 || data->collectablecount < 1 
+	if (data->playercount != 1 || data->collectablecount < 1
 		|| data->exitcount != 1)
 		errorfunc();
 }

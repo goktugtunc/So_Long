@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 13:00:56 by gotunc            #+#    #+#             */
-/*   Updated: 2023/09/09 16:11:09 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/09/12 16:24:25 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,9 @@ void	trueextension(char *map)
 	len = ft_strlen(map) - 1;
 	if (map[len] != 'r' && map[len - 1] != 'e' && map[len - 2] != 'b' 
 		&& map[len - 3] != '.')
-	{
-		print("Error!\n");
-		exit(-1);
-	}
-	if (ft_strlen(map) < 5)
-	{
-		print("Error!\n");
-		exit(-1);
-	}
+		errorfunc();
+	if (map[len - 4] == '/' || ft_strlen(map) < 5)
+		errorfunc();
 }
 
 void	placemap2(t_list *data, int i, int len)
@@ -46,6 +40,7 @@ void	placemap2(t_list *data, int i, int len)
 		while (column < len)
 		{
 			data->map[row][column] = a[column];
+			data->tempmap[row][column] = a[column];
 			column++;
 		}
 		column = 0;
@@ -61,12 +56,13 @@ void	placemap(t_list *data, char *map, int i, int len)
 	int	m;
 
 	m = 0;
-	data = malloc(sizeof(t_list));
 	data->mapname = map;
 	data->map = malloc(sizeof(char *) * i);
+	data->tempmap = malloc(sizeof(char *) * i);
 	while (m < i)
 	{
 		data->map[m] = malloc(sizeof(char) * len - 1);
+		data->tempmap[m] = malloc(sizeof(char) * len - 1);
 		m++;
 	}
 	placemap2(data, i, len - 1);
@@ -111,4 +107,12 @@ void	ishavemap(char *map, t_list *data)
 	close(fd);
 	trueextension(map);
 	copymap(map, data);
+	findplayer(data);
+	accessablemap(data, data->playerrow, data->playercolumn);
+	tempmapcontrol(data);
+	data->accessexit = 0;
+	printf("%d %d\n", data->playerrow, data->playercolumn);
+	accessableexit(data, data->playerrow, data->playercolumn);
+	if (data->accessexit != 1)
+		errorfunc();
 }
