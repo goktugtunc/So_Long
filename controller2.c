@@ -6,7 +6,7 @@
 /*   By: gotunc <gotunc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:17:12 by gotunc            #+#    #+#             */
-/*   Updated: 2023/09/12 16:25:33 by gotunc           ###   ########.fr       */
+/*   Updated: 2023/09/18 14:21:13 by gotunc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ void	accessablemap(t_list *data, int i, int j)
 {
 	data->tempmap[i][j] = '*';
 	if (data->tempmap[i - 1][j] != '1' && data->tempmap[i - 1][j] != '*' &&
-		data->tempmap[i - 1][j] != 'E')
+		data->tempmap[i - 1][j] != 'E' && data->tempmap[i - 1][j] != 'N')
 		accessablemap(data, i - 1, j);
 	if (data->tempmap[i][j + 1] != '1' && data->tempmap[i][j + 1] != '*' &&
-		data->tempmap[i][j + 1] != 'E')
+		data->tempmap[i][j + 1] != 'E' && data->tempmap[i][j + 1] != 'N')
 		accessablemap(data, i, j + 1);
 	if (data->tempmap[i + 1][j] != '1' && data->tempmap[i + 1][j] != '*' &&
-		data->tempmap[i + 1][j] != 'E')
+		data->tempmap[i + 1][j] != 'E' && data->tempmap[i + 1][j] != 'N')
 		accessablemap(data, i + 1, j);
 	if (data->tempmap[i][j - 1] != '1' && data->tempmap[i][j - 1] != '*' &&
-		data->tempmap[i][j - 1] != 'E')
+		data->tempmap[i][j - 1] != 'E' && data->tempmap[i][j - 1] != 'N')
 		accessablemap(data, i, j - 1);
 }
 
@@ -54,13 +54,17 @@ void	accessableexit(t_list *data, int i, int j)
 	if (data->tempmap[i][j] == 'E')
 		data->accessexit = 1;
 	data->tempmap[i][j] = '.';
-	if (data->tempmap[i - 1][j] != '1' && data->tempmap[i - 1][j] != '.')
+	if (data->tempmap[i - 1][j] != '1' && data->tempmap[i - 1][j] != '.'
+		&& data->tempmap[i - 1][j] != 'N')
 		accessableexit(data, i - 1, j);
-	if (data->tempmap[i][j + 1] != '1' && data->tempmap[i][j + 1] != '.')
+	if (data->tempmap[i][j + 1] != '1' && data->tempmap[i][j + 1] != '.'
+		&& data->tempmap[i][j + 1] != 'N')
 		accessableexit(data, i, j + 1);
-	if (data->tempmap[i + 1][j] != '1' && data->tempmap[i + 1][j] != '.')
+	if (data->tempmap[i + 1][j] != '1' && data->tempmap[i + 1][j] != '.'
+		&& data->tempmap[i + 1][j] != 'N')
 		accessableexit(data, i + 1, j);
-	if (data->tempmap[i][j - 1] != '1' && data->tempmap[i][j - 1] != '.')
+	if (data->tempmap[i][j - 1] != '1' && data->tempmap[i][j - 1] != '.'
+		&& data->tempmap[i][j - 1] != 'N')
 		accessableexit(data, i, j - 1);
 }
 
